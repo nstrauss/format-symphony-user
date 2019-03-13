@@ -74,7 +74,8 @@ Add that as one line to `/config/known_hosts` and then try an SFTP upload with `
 If necessary host key verification can be disabled by setting `disable_key_check` to `True`. But don't!
 
 # Workflow
-1. Export student data from SIS.
-2. Run `format_symphony_user.py`. 
-3. ascii_converted_data.txt uploaded via SFTP to Symphony server. 
-4. Load users report scheduled in Symphony to create and update users. 
+1. Configure `symphony.conf` as needed.
+2. Export student data from SIS.
+3. Run `format_symphony_user.py -sftp`. 
+4. ascii_converted_data.txt uploaded via SFTP to Symphony server. 
+5. Load users report scheduled in Symphony to create and update users. 
