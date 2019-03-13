@@ -30,11 +30,11 @@ These are fields that change per user and are specific to scenarios dealing with
 - phone_number - Expected phone number format is (555)555-5555. Changes to spaces only.
 
 # symphony.conf Configurable Fields
-`/config/symphony.conf` is configurable for static values which are the same across every user record (.USER_. formatted), input and ouput filenames, and SFTP.
+`/config/symphony.conf` is configurable for static values which are the same across every user record (.USER_. formatted), input and ouput filenames, and SFTP. The idea is that no interaction with the script code is necessary to configure values. 
 
-Not all data fields are included which can be used in user creation as documented by SirsiDynix. These are the fields found to be useful. In most cases additional fields aren't necessary.
+Not all data fields are included which can be defined in user creation as documented by SirsiDynix. These are the fields I found to be useful. In most cases additional fields aren't necessary.
 
-Under filenames settings csv_name is the CSV `format_symphony_user.py` looks for in the same folder it exists. This should be set to a standard value, probably whatever the ouput of the filename from your SIS is. ascii_name is the resulting converted ASCII user records filename. Again this is a standard name so that Symphony's scheduled load user report can target the same file path. 
+Under filenames settings, csv_name is the CSV `format_symphony_user.py` looks for in the same folder it exists. This should be set to a standard value, probably whatever the ouput of the filename is from your SIS. ascii_name is the resulting converted ASCII user records filename. Again this is a standard name so that Symphony's scheduled load user report can target the same file path. 
 
 SFTP credentials, server address, and port are in most cases provided by SirsiDynix support when hosted. These will be different for on premise environments. 
 
@@ -46,9 +46,8 @@ USER_CATEGORY fields are arbitrary demographic information. These may need to be
 2. Copy CSV containing student data with required columns to main folder. 
 3. Run `python ./format_symphony_user.py`
 4. The resulting file will be ASCII formatted user data which can be used in a load user report. Name is whatever's set for ascii_name.
-5. If SFTP flag is used and SFTP fields configured the resulting file will be uploaded to `/Unicorn/Xfer/` directory.
+5. If the SFTP flag is used and SFTP fields are configured the resulting file will be uploaded to `/Unicorn/Xfer/` directory.
     * `python ./format_symphony_user.py -sftp`
-
 
 # SFTP Upload
 SFTP support is included using [pysftp](https://pysftp.readthedocs.io/). Modify the required `sftp` fields in `/config/symphony.conf` and then run `./format_symphony_user -sftp`. `-sftp/--sftp` is the only available argument. 
@@ -75,4 +74,7 @@ Add that as one line to `/config/known_hosts` and then try an SFTP upload with `
 If necessary host key verification can be disabled by setting `disable_key_check` to `True`. But don't!
 
 # Workflow
-Export student data from SIS > Run format_symphony_user.py > ascii_converted_data.txt uploaded via SFTP to Symphony server > Load users report scheduled in Symphony to create and update users
+1. Export student data from SIS.
+2. Run `format_symphony_user.py`. 
+3. ascii_converted_data.txt uploaded via SFTP to Symphony server. 
+4. Load users report scheduled in Symphony to create and update users. 
