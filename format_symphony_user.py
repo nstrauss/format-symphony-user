@@ -193,7 +193,7 @@ def main():
     # Generate timestamped file to append user ASCII.
     ascii_path = os.path.join(ASCII_DIR, 'LDUSER-' + TIMESTAMP + '.txt')
     try:
-        ascii_file = open(ascii_path, 'w+')
+        ascii_file = open(ascii_path, 'w+', newline='\n')
     except (IOError, OSError):
         print(PERM_ERROR)
         exit(1)
